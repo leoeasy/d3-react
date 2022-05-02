@@ -1,7 +1,12 @@
 import "./App.css";
-
+import { useEffect, useRef } from "react";
 function App() {
-  return <svg></svg>;
+  const svgRef = useRef();
+
+  useEffect(() => {
+    console.log("svg ref", svgRef);
+  }, []);
+  return <svg ref={svgRef}></svg>;
 }
 
 export default App;
