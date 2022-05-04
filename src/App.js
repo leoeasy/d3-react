@@ -1,10 +1,9 @@
 import "./App.css";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { select } from "d3";
-const data = [10, 20, 50, 70];
 function App() {
   const svgRef = useRef();
-
+  const [data, setData] = useState([10, 20, 50, 70]);
   useEffect(() => {
     console.log("svg ref", svgRef);
     const svg = select(svgRef.current);
@@ -12,12 +11,24 @@ function App() {
       .selectAll("circle")
       .data(data)
       .join(
-        (enter) => enter.append("circle"),
+        (enter) => enter.append("circle").attr("calss", "new"),
         (update) => update.attr("class", "updated"),
         (exit) => exit.remove()
       );
-  }, []);
-  return <svg ref={svgRef}></svg>;
+  }, [data]);
+  return (
+    <React.Fragment>
+      <svg ref={svgRef}></svg>
+      <br />
+      <button onClick={() => setData(data.map((v) => v + 5))}>
+        Updateed data
+      </button>
+      <span />
+      <button onClick={() => setData(data.filter((v) => v > 50))}>
+        Filter data
+      </button>
+    </React.Fragment>
+  );
 }
 
 export default App;
