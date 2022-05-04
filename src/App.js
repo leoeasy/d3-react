@@ -11,7 +11,14 @@ function App() {
       .selectAll("circle")
       .data(data)
       .join(
-        (enter) => enter.append("circle").attr("calss", "new"),
+        (enter) =>
+          enter
+            .append("circle")
+            .attr("calss", "new")
+            .attr("r", (value) => value)
+            .attr("cx", (value) => value + 2)
+            .attr("cy", (value) => value + 2)
+            .attr("stroke", "red"),
         (update) => update.attr("class", "updated"),
         (exit) => exit.remove()
       );
